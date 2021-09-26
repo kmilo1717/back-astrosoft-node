@@ -1,12 +1,12 @@
-pipeline{
+pipeline {
     agent any
     stages{
-        stage('Install dependencies'){
+        stage('Install dependencies') {
             steps{
-                npm 'install'
+                npm "install"
             }
         }
-        stage('Run init test') {
+        stage('Run unit test') {
             steps{
                 npm "test"
             }
