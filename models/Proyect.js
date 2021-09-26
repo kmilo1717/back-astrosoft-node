@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+//Modulo de proyectos
 const ProyectSchema =  mongoose.Schema({
   name : {
     type : String,
