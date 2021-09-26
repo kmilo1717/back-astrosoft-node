@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+//File config mongodb with mongoose library
 require('dotenv').config({path : 'develop.env'});
 
 const connectDb = async () => {
