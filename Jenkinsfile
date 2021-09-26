@@ -3,12 +3,12 @@ pipeline {
     stages{
         stage('Install dependencies') {
             steps{
-                echo 'install'
+                npm install
             }
         }
         stage('Run unit test') {
             steps{
-                echo 'test'
+                npm test
             }
         }
         stage('Run deploy') {
