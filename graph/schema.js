@@ -67,17 +67,23 @@ const typeDefs = gql`
     state      : String
     create_at  : String
   }
+
+  input ProyectProgress{
+    id : ID!
+    progress : Int!
+  }
   
 
   #Querys and Muttios
 
   type Query {
     # Users
-    getUser(token:String!) : User
-
+    getUserToken(token:String!) : User
+    getUser(id:String!) : User
 
     # Proyects
     getProyects:[Proyect]
+    getProyect(id:String!):Proyect
   }
   type Mutation {
 
@@ -87,6 +93,7 @@ const typeDefs = gql`
 
     # Proyects
     newProyect(input:ProyectInput):Proyect
+    progressProyect(input:ProyectProgress):Proyect
 
   }
 
