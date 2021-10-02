@@ -1,8 +1,18 @@
 const { gql } = require('apollo-server');
+const ObjectId = require('mongoose').Types.ObjectId;
 
 
 //Schemas
 const typeDefs = gql`
+
+  #Generic
+  type ObjectId {
+    id : String
+    fullname : String
+    role     : String
+    email    : String
+    create_at: String
+  }
 
   # Users
   type User {
@@ -28,6 +38,11 @@ const typeDefs = gql`
 
   # Proyects
 
+  type ProyectUserRol {
+    id_user : ObjectId,
+    role : String,
+  }
+
   type Proyect {
     id         : ID
     name       : String
@@ -39,16 +54,10 @@ const typeDefs = gql`
     create_at  : String
   }
 
-  type ProyectUserRol {
-    id : ID,
-    role : String
-  }
-
   input ProyectUserRolInput {
-    id : ID,
+    id_user : ID,
     role : String
   }
-
   input ProyectInput {
     name       : String!
     start_date : String!

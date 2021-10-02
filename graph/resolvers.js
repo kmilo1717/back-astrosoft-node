@@ -24,7 +24,11 @@ const resolvers = {
     //#############PROYECTS########################
     getProyects : async() => {
       try {
-        const resp = Proyect.find({});
+        const resp = await Proyect.find({}).populate({
+          path:'members.id_user',
+          select:"fullname email role create_at"
+        })
+
         return resp;
       } catch (error) {
         console.log(error)

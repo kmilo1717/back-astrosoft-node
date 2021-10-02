@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 //Modulo de proyectos
 const ProyectSchema =  mongoose.Schema({
   name : {
@@ -14,9 +15,12 @@ const ProyectSchema =  mongoose.Schema({
     type : Date,
     require : true
   },
-  members : {
-    type : Array
-  },
+  members : [
+    {
+      id_user : {type:Schema.ObjectId, ref:'User'},
+      role : {type : String}
+    }
+  ],
   progress : {
     type : Number,
     default : 0
