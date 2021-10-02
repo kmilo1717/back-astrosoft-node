@@ -6,10 +6,26 @@ const ProyectSchema =  mongoose.Schema({
     require : true,
     trin : true 
   },
+  start_date : {
+    type : Date,
+    require : true
+  },
+  end_date : {
+    type : Date,
+    require : true
+  },
+  members : {
+    type : Array
+  },
+  progress : {
+    type : Number,
+    default : 0
+  },
   state : {
     type : String,
     require : true,
-    trin : true
+    trin : true,
+    default : "Start"
   },
   create_at : {
     type : Date,

@@ -29,20 +29,36 @@ const typeDefs = gql`
   # Proyects
 
   type Proyect {
-    id       : ID
-    name     : String
-    state    : String
-    create_at: String
+    id         : ID
+    name       : String
+    start_date : String
+    end_date   : String
+    members    : [ProyectUserRol]
+    progress   : Int
+    state      : String
+    create_at  : String
+  }
+
+  type ProyectUserRol {
+    id : ID,
+    role : String
+  }
+
+  input ProyectUserRolInput {
+    id : ID,
+    role : String
   }
 
   input ProyectInput {
-    name : String!
-    state : String!
-    create_at : String
+    name       : String!
+    start_date : String!
+    end_date   : String!
+    members    : [ProyectUserRolInput]
+    progress   : Int
+    state      : String
+    create_at  : String
   }
-
-
-
+  
 
   #Querys and Muttios
 

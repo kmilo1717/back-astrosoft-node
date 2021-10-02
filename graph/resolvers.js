@@ -15,13 +15,13 @@ const creatToken = (user, SECRET, expiresIn ) => {
 //Resolvers
 const resolvers = {
   Query : {
+    //#############USERS########################
     getUser : async(_, { token }) => {
       const userId = await jwt.verify(token, process.env.SECRET)
       return userId;
     },
 
-    //proyects
-
+    //#############PROYECTS########################
     getProyects : async() => {
       try {
         const resp = Proyect.find({});
@@ -32,6 +32,7 @@ const resolvers = {
     }
   },
   Mutation : {
+    //#############USERS########################
     newUser : async(_, { input }) => {
 
       const { email, password } = input;
@@ -81,8 +82,7 @@ const resolvers = {
       }
     },
 
-
-    //proyects
+    //#############PROYECTS########################
     newProyect : async(_, { input }) => {
       try {
         const newProyect = new Proyect(input);
