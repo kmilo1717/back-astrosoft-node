@@ -8,7 +8,7 @@ const connectDb = require('./config/db');
 connectDb();
 
 
-//server
+//server with ApolloServer
 const server = new ApolloServer({
   typeDefs,
   resolvers
