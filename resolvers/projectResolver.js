@@ -76,18 +76,36 @@ const resolvers = {
       }
       if (progress <= 0) {
         proyExists.progress = 0;
-        proyExists.state = "Not started";
-      } else if (progress > 0 && progress <= 100) {
-        proyExists.progress = progress;
         proyExists.state = "Start";
-      } else if (progress > 100) {
-        proyExists.progress = 100;
+      } else if (progress > 1 && progress < 100) {
+        proyExists.progress = progress;
+        proyExists.state = "Doing";
+      } else if (progress == 100) {
+        proyExists.progress = progress;
         proyExists.state = "Complete";
+      } else {
+        throw new Error("Number no valid");
       }
 
       console.log(proyExists);
 
-      proyExists.save();
+      await proyExists.save();
+      return proyExists;
+    },
+
+    updateDatesProjectById: async (_, { input }) => {
+      console.log(input);
+      const { id, start_date, end_date } = input;
+      let proyExists = await Proyect.findOne({ id });
+      if (!proyExists) {
+        throw new Error("Proyect does not exist");
+      }
+      proyExists.start_date = start_date;
+      proyExists.end_date = end_date;
+
+      console.log(proyExists);
+
+      await proyExists.save();
       return proyExists;
     },
   },

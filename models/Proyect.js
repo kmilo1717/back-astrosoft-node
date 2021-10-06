@@ -10,10 +10,12 @@ const ProyectSchema = mongoose.Schema({
   start_date: {
     type: Date,
     require: true,
+    default: Date.now(),
   },
   end_date: {
     type: Date,
     require: true,
+    default: Date.now() + 70,
   },
   members: [
     {

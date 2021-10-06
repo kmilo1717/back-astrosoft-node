@@ -36,23 +36,28 @@ const projectSchema = gql`
     start_date: String
     end_date: String
     progress: Int
-    state: String
-    create_at: String
   }
 
   input NewMemberInput {
     id: ID
     members: MemberInput
   }
+
   input MemberInput {
     _id: ID
     user_id: ID
     user_role: String!
   }
 
-  input ProyectProgress {
+  input ProyectProgressInput {
     id: ID!
     progress: Int!
+  }
+
+  input updateDatesProjectByIdInput {
+    id: ID!
+    start_date: String
+    end_date: String
   }
 
   #Querys and Muttios
@@ -63,8 +68,9 @@ const projectSchema = gql`
   }
   type Mutation {
     newProyect(input: ProyectInput): Proyect
-    progressProyect(input: ProyectProgress): Proyect
+    progressProyect(input: ProyectProgressInput): Proyect
     newMemberOnProject(input: NewMemberInput): Proyect
+    updateDatesProjectById(input: updateDatesProjectByIdInput): Proyect
   }
 `;
 
