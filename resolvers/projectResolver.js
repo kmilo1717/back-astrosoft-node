@@ -1,5 +1,5 @@
-const User = require("../models/User");
-const Proyect = require("../models/Proyect");
+const User = require("../model/User");
+const Proyect = require("../model/Proyect");
 
 const resolvers = {
   Query: {
@@ -59,6 +59,29 @@ const resolvers = {
           user_id: projMember,
           user_role: user_role,
         });
+        await proyExists.save();
+        console.log(proyExists);
+        return proyExists;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    deleteMemberOnProjectById: async (_, { input }) => {
+      try {
+        const { project_id, member_id } = input;
+        let proyExists = await Proyect.findOne({ project_id }).populate({
+          path: "members.user_id",
+          select: "fullname email role create_at",
+        });
+        if (!proyExists) {
+          throw new Error("Proyect does not exist");
+        }
+        if (!proyExists.members.find((item) => item._id == member_id)) {
+          throw new Error("Member is not on the project");
+        }
+
+        await proyExists.members.remove(member_id);
         await proyExists.save();
         console.log(proyExists);
         return proyExists;

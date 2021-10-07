@@ -59,6 +59,10 @@ const projectSchema = gql`
     start_date: String
     end_date: String
   }
+  input deleteMemberOnProjectByIdInput {
+    project_id: ID!
+    member_id: ID!
+  }
 
   #Querys and Muttios
 
@@ -71,6 +75,7 @@ const projectSchema = gql`
     progressProyect(input: ProyectProgressInput): Proyect
     newMemberOnProject(input: NewMemberInput): Proyect
     updateDatesProjectById(input: updateDatesProjectByIdInput): Proyect
+    deleteMemberOnProjectById(input: deleteMemberOnProjectByIdInput): Proyect
   }
 `;
 

@@ -1,6 +1,6 @@
 const { ApolloServer } = require("apollo-server");
-const projectSchema = require("./schemas/projectSchema");
-const userSchema = require("./schemas/userSchema");
+const projectSchema = require("./schema/projectSchema");
+const userSchema = require("./schema/userSchema");
 const projectResolver = require("./resolvers/projectResolver");
 const userResolver = require("./resolvers/userResolver");
 const connectDb = require("./config/db");
