@@ -3,12 +3,13 @@ pipeline {
     stages{
         stage('Install dependencies') {
             steps{
-                echo "install"
+                test "install"
             }
         }
         stage('Run unit test') {
             steps{
-                echo "test"
+                test "test"
+                echo "testing"
             }
         }
         stage('Run deploy') {

@@ -1,22 +1,24 @@
-const { ApolloServer } = require('apollo-server');
-const typeDefs = require('./graph/schema');
-const resolvers = require('./graph/resolvers');
-const connectDb = require('./config/db');
-
+const { ApolloServer } = require("apollo-server");
+const projectSchema = require("./schema/projectSchema");
+const userSchema = require("./schema/userSchema");
+const projectResolver = require("./resolvers/projectResolver");
+const userResolver = require("./resolvers/userResolver");
+const connectDb = require("./config/db");
 
 //Connect Db
 connectDb();
 
+//Import schemas and resolvers
+const typeDefs = [projectSchema, userSchema];
+const resolvers = [projectResolver, userResolver];
 
-//server with ApolloServer
+//Server with ApolloServer
 const server = new ApolloServer({
   typeDefs,
-  resolvers
+  resolvers,
 });
 
-
-
-//run Server
-server.listen().then(({url})=>{
-  console.log(`Run server on URL ${url}`)
+//Run Server
+server.listen().then(({ url }) => {
+  console.log(`Run server on URL ${url}`);
 });
