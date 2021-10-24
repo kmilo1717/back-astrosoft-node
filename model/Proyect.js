@@ -31,7 +31,7 @@ const ProyectSchema = mongoose.Schema({
     type: String,
     require: true,
     trin: true,
-    default: "Start",
+    default: "Sin Iniciar",
   },
   create_at: {
     type: Date,

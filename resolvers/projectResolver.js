@@ -70,18 +70,34 @@ const resolvers = {
     deleteMemberOnProjectById: async (_, { input }) => {
       try {
         const { project_id, member_id } = input;
-        let proyExists = await Proyect.findOne({ project_id }).populate({
-          path: "members.user_id",
-          select: "fullname email role create_at",
+        let proyExists = await Proyect.findById(project_id).populate({
+          path: "members.user_id members._id",
+          select: "_id fullname email role create_at",
         });
         if (!proyExists) {
           throw new Error("Proyect does not exist");
         }
-        if (!proyExists.members.find((item) => item._id == member_id)) {
+        let memberExists = await proyExists.members.filter((members) => members._id === member_id);
+        if (!memberExists) {
           throw new Error("Member is not on the project");
         }
-
+        console.log(memberExists);
         await proyExists.members.remove(member_id);
+        await proyExists.save();
+        console.log(proyExists);
+        return proyExists;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    deleteProjectById: async (_, { input }) => {
+      try {
+        const { project_id} = input;
+        let proyExists = await Proyect.findById(project_id);
+        if (!proyExists) {
+          throw new Error("Proyect does not exist");
+        }
+        await proyExists.remove(project_id);
         await proyExists.save();
         console.log(proyExists);
         return proyExists;
@@ -93,19 +109,19 @@ const resolvers = {
     progressProyect: async (_, { input }) => {
       console.log(input);
       const { id, progress } = input;
-      let proyExists = await Proyect.findOne({ id });
+      let proyExists = await Proyect.findById( id );
       if (!proyExists) {
         throw new Error("Proyect does not exist");
       }
       if (progress <= 0) {
         proyExists.progress = 0;
-        proyExists.state = "Start";
+        proyExists.state = "Sin Iniciar";
       } else if (progress > 1 && progress < 100) {
         proyExists.progress = progress;
-        proyExists.state = "Doing";
+        proyExists.state = "Iniciado";
       } else if (progress == 100) {
         proyExists.progress = progress;
-        proyExists.state = "Complete";
+        proyExists.state = "Finalizado";
       } else {
         throw new Error("Number no valid");
       }
@@ -119,7 +135,7 @@ const resolvers = {
     updateDatesProjectById: async (_, { input }) => {
       console.log(input);
       const { id, start_date, end_date } = input;
-      let proyExists = await Proyect.findOne({ id });
+      let proyExists = await Proyect.findById( id );
       if (!proyExists) {
         throw new Error("Proyect does not exist");
       }
